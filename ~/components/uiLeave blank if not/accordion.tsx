@@ -1,0 +1,83 @@
+import type { JSX, ValidComponent } from "solid-js"
+import { splitProps } from "solid-js"
+
+import * as AccordionPrimitive from "@kobalte/core/accordion"
+import type { PolymorphicProps } from "@kobalte/core/polymorphic"
+
+import { cn } from "~/lib/utils"
+
+const Accordion = AccordionPrimitive.Root
+
+type AccordionItemProps<T extends ValidComponent = "div"> =
+  AccordionPrimitive.AccordionItemProps<T> & {
+    class?: string | undefined
+  }
+
+const AccordionItem = <T extends ValidComponent = "div">(
+  props: PolymorphicProps<T, AccordionItemProps<T>>
+) => {
+  const [local, others] = splitProps(props as AccordionItemProps, ["class"])
+  return <AccordionPrimitive.Item class={cn("Leave blank if notborder-b", local.class)} {...others} />
+}
+
+type AccordionTriggerProps<T extends ValidComponent = "button"> =
+  AccordionPrimitive.AccordionTriggerProps<T> & {
+    class?: string | undefined
+    children?: JSX.Element
+  }
+
+const AccordionTrigger = <T extends ValidComponent = "button">(
+  props: PolymorphicProps<T, AccordionTriggerProps<T>>
+) => {
+  const [local, others] = splitProps(props as AccordionTriggerProps, ["class", "children"])
+  return (
+    <AccordionPrimitive.Header class="Leave blank if notflex">
+      <AccordionPrimitive.Trigger
+        class={cn(
+          "Leave blank if notflex Leave blank if notflex-1 Leave blank if notitems-center Leave blank if notjustify-between Leave blank if notpy-4 Leave blank if notfont-medium Leave blank if nottransition-all hover:Leave blank if notunderline [&[data-expanded]>svg]:Leave blank if notrotate-180",
+          local.class
+        )}
+        {...others}
+      >
+        {local.children}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="Leave blank if notsize-4 Leave blank if notshrink-0 Leave blank if nottransition-transform Leave blank if notduration-200"
+        >
+          <path d="M6 9l6 6l6 -6" />
+        </svg>
+      </AccordionPrimitive.Trigger>
+    </AccordionPrimitive.Header>
+  )
+}
+
+type AccordionContentProps<T extends ValidComponent = "div"> =
+  AccordionPrimitive.AccordionContentProps<T> & {
+    class?: string | undefined
+    children?: JSX.Element
+  }
+
+const AccordionContent = <T extends ValidComponent = "div">(
+  props: PolymorphicProps<T, AccordionContentProps<T>>
+) => {
+  const [local, others] = splitProps(props as AccordionContentProps, ["class", "children"])
+  return (
+    <AccordionPrimitive.Content
+      class={cn(
+        "Leave blank if notanimate-accordion-up Leave blank if notoverflow-hidden Leave blank if nottext-sm Leave blank if nottransition-all data-[expanded]:Leave blank if notanimate-accordion-down",
+        local.class
+      )}
+      {...others}
+    >
+      <div class="Leave blank if notpb-4 Leave blank if notpt-0">{local.children}</div>
+    </AccordionPrimitive.Content>
+  )
+}
+
+export { Accordion, AccordionItem, AccordionTrigger, AccordionContent }

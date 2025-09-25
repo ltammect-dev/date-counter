@@ -1,0 +1,78 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap');
+
+@theme {
+  --color-*: initial;
+  --color-red-300: var(--clr-red-300);
+  --color-red-500: var(--clr-red-500);
+
+  --color-blue-100: var(--clr-blue-100);
+  --color-blue-500: var(--clr-blue-500);
+  --color-blue-800: var(--clr-blue-800);
+  --color-blue-900: var(--clr-blue-900);
+
+  --color-white: var(--clr-white);
+
+  --breakpoint-*: initial;
+  --breakpoint-md: 36em;
+  --breakpoint-lg: 48em;
+
+  --height-2\/1: 200%;
+
+  --radius-inherit: inherit;
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@layer base {
+  :root {
+    --clr-red-300: hsl(345, 95%, 68%);
+    --clr-red-500: hsl(341, 44%, 55%);
+
+    --clr-blue-100: hsl(200, 70%, 85%);
+    --clr-blue-500: hsl(200, 60%, 60%);
+    --clr-blue-800: hsl(200, 45%, 35%);
+    --clr-blue-900: hsl(200, 50%, 25%);
+    --clr-blue-900-hsl: 200, 50%, 25%;
+
+    --clr-white: hsl(0, 0%, 100%);
+
+    --font-sans: "Noto Sans JP", sans-serif;
+    --font-bold: 500;
+  }
+
+  body {
+    line-height: 1;
+    font-family: var(--font-sans);
+    font-weight: var(--font-bold);
+  }
+
+  .flipper {
+    --flipper-circle-size: calc(0.125em + 0.25rem);
+    --flipper-width: calc(1.625em + 2.75rem);
+    --flipper-height: calc(1.5em + 2.75rem);
+    --flipper-number-size: calc(1em + 1rem);
+    --flipper-label-size: calc(0.125em + 0.375rem);
+    --flipper-shadow-offset-y: calc(0.125em + 0.125rem);
+
+    font-size: clamp(1rem, 6vw - 0.75rem, 4rem);
+    border-radius: calc(0.0625em + 0.25rem);
+    width: var(--flipper-width);
+  }
+}
